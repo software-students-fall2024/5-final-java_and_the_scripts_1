@@ -26,12 +26,12 @@ jobs:
       # Install dependencies
       - name: Install Dependencies
         run: |
-          pip install -r web-app/requirements.txt
+          pip install -r requirements.txt
 
       # Start MongoDB container
       - name: Start MongoDB Container
         run: |
-          docker run -d --name mongodb -e MONGO_INITDB_DATABASE=${{ secrets.MONGO_DBNAME }} -p 27017:27017 mongo:latest
+          docker run -d --name mongodb -e MONGO_INITDB_DATABASE=Outfits -p 27017:27017 mongo:latest
 
       # Wait for MongoDB to be ready
       - name: Wait for MongoDB
@@ -47,13 +47,24 @@ jobs:
           echo "MongoDB failed to start."
           exit 1
 
+      # Create .env file
+      - name: Create env file
+        run: |
+          echo "MONGO_DBNAME=${{ secrets.MONGO_DB }}" > .env
+          echo "MONGO_URI=${{ secrets.MONGO_URI }}" >> .env
+          echo "FLASK_APP=app.py" >> .env
+          echo "FLASK_ENV=development" >> .env
+          echo "FLASK_PORT=5000" >> .env
+          echo "OPENWEATHER_API_KEY=${{ secrets.OPENWEATHER_API_KEY }}" >> .env
+
       # Run tests
       - name: Run Tests
-        env:
-          MONGO_DBNAME: ${{ secrets.MONGO_DBNAME }}
-          MONGO_URI: ${{ secrets.MONGO_URI }}
         run: |
-          pytest web-app/tests/
+          set -o allexport
+          source .env
+          set +o allexport
+          pytest tests/
+
       # Set up Docker Buildx
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
@@ -64,25 +75,25 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
+
       # Build and push the Docker image
       - name: Build and push Docker image
         run: |
-          docker buildx build --platform linux/amd64,linux/arm64 -t jl8059/web-app:latest ./web-app --push
+          docker buildx build --platform linux/amd64,linux/arm64 -t jl8059/web-app:latest . --push
 
       # Deploy to DigitalOcean
       - name: Deploy to DigitalOcean
         uses: appleboy/ssh-action@v0.1.1
         with:
-          host: ${{ secrets.DO_HOST }}
+          host: 159.203.137.174
           username: root
           key: ${{ secrets.DO_SSH_KEY }}
           script: |
-            # Navigate to the deployment directory
+            mkdir -p /root/project
             cd /root/project
+            docker pull jl8059/web-app:latest
+            docker-compose -f docker-compose.yml down || true
+            docker-compose -f docker-compose.yml up --build -d
 
-            # Pull the latest images from Docker Hub
-            docker pull nataliovcharov/web-app:latest
-
-            # Restart the containers using docker-compose
-            docker-compose down
-            docker-compose up -d
+            
+            

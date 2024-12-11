@@ -4,11 +4,9 @@ on:
   push:
     branches:
       - main
-      - master
   pull_request:
     branches:
       - main
-      - master
 
 jobs:
   build-test-push-deploy:
@@ -16,7 +14,7 @@ jobs:
 
     steps:
       # Checkout the code
-      - name: Checkout Code
+      - name: Checkout code
         uses: actions/checkout@v3
 
       # Set up Python
@@ -28,7 +26,7 @@ jobs:
       # Install dependencies
       - name: Install Dependencies
         run: |
-          pip install -r web-app/requirements.txt
+          pip install -r requirements.txt
 
       # Start MongoDB container
       - name: Start MongoDB Container
@@ -38,7 +36,7 @@ jobs:
       # Wait for MongoDB to be ready
       - name: Wait for MongoDB
         run: |
-          for i in {1..10}; do
+          for i in {1..9}; do
             if nc -z localhost 27017; then
               echo "MongoDB is ready!"
               exit 0
@@ -49,13 +47,27 @@ jobs:
           echo "MongoDB failed to start."
           exit 1
 
+      # Create .env file
+      - name: Create env file
+        run: |
+          echo "MONGO_DBNAME=${{ secrets.MONGO_DB }}" > .env
+          echo "MONGO_URI=${{ secrets.MONGO_URI }}" >> .env
+          echo "FLASK_APP=app.py" >> .env
+          echo "FLASK_ENV=development" >> .env
+          echo "FLASK_PORT=5000" >> .env
+          echo "OPENWEATHER_API_KEY=${{ secrets.OPENWEATHER_API_KEY }}" >> .env
+
       # Run tests
       - name: Run Tests
-        env:
-          MONGO_DBNAME: Outfits
-          MONGO_URI: mongodb://localhost:27017
         run: |
-          pytest web-app/tests/
+          set -o allexport
+          source .env
+          set +o allexport
+          pytest tests/
+
+      # Set up Docker Buildx
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
 
       # Log in to Docker Hub
       - name: Log in to Docker Hub
@@ -65,38 +77,20 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       # Build and push the Docker image
-      - name: Build and Push Web App Docker Image
+      - name: Build and push Docker image
         run: |
-          docker build -t nataliovcharov/web-app ./web-app
-          docker push nataliovcharov/web-app
+          docker buildx build --platform linux/amd64,linux/arm64 -t jl8059/web-app:latest . --push
 
-      # Set up SSH key to authenticate with the server
-      - name: Set up SSH key
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.DO_SSH_KEY }}" > ~/.ssh/id_ed25519
-          chmod 600 ~/.ssh/id_ed25519
-          ssh-keyscan 159.203.137.174 >> ~/.ssh/known_hosts
-
-      # Copy docker-compose.yml to the server
-      - name: Copy docker-compose.yml
-        uses: appleboy/scp-action@v0.1.1
+      # Deploy to DigitalOcean
+      - name: Deploy to DigitalOcean
+        uses: appleboy/ssh-action@v0.1.1
         with:
           host: 159.203.137.174
           username: root
           key: ${{ secrets.DO_SSH_KEY }}
-          source: ./docker-compose.yml
-          target: /root/docker-compose.yml
-
-      # Deploy to the Digital Ocean Droplet
-      - name: Deploy to Digital Ocean
-        uses: appleboy/ssh-action@v0.1.10
-        with:
-          host: 159.203.137.174
-          username: root
-          key: ${{ secrets.DO_SSH_KEY }}
-          timeout: 240s
           script: |
-            docker pull nataliovcharov/web-app:latest
-            docker-compose -f /root/docker-compose.yml up -d
-
+            mkdir -p /root/project
+            cd /root/project
+            docker pull jl8059/web-app:latest
+            docker-compose -f docker-compose.yml down || true
+            docker-compose -f docker-compose.yml up --build -d
