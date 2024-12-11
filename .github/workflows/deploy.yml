@@ -55,5 +55,6 @@ jobs:
 
       - name: Build Flask App Docker Image
         run: |
+          docker run --publish 27010:27010  mongo
           docker build -t jl8059/web-app:latest ./web-app
           docker push jl8059/web-app:latest
