@@ -99,7 +99,7 @@ jobs:
           username: root
           key: ${{ secrets.DO_SSH_KEY }}
           script: |
-            cd 5-final-java_and_the_scripts_1/web-app
+            cd project
             docker pull ${{ secrets.DOCKER_USERNAME }}/web-app:latest
             docker-compose -f docker-compose.yml down || true
             docker-compose -f docker-compose.yml up --build -d
