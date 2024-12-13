@@ -40,14 +40,14 @@ jobs:
       #     set +o allexport
       #     pytest tests/
       # Create .env file
-      # - name: Create env file
-      #   run: |
-      #     echo "MONGO_DBNAME=${{ secrets.MONGO_DB }}" > .env
-      #     echo "MONGO_URI=${{ secrets.MONGO_URI }}" >> .env
-      #     echo "FLASK_APP=app.py" >> .env
-      #     echo "FLASK_ENV=development" >> .env
-      #     echo "FLASK_PORT=5000" >> .env
-      #     echo "OPENWEATHER_API_KEY=${{ secrets.OPENWEATHER_API_KEY }}" >> .env
+      - name: Create env file
+        run: |
+          echo "MONGO_DBNAME=${{ secrets.MONGO_DB }}" > .env
+          echo "MONGO_URI=${{ secrets.MONGO_URI }}" >> .env
+          echo "FLASK_APP=app.py" >> .env
+          echo "FLASK_ENV=development" >> .env
+          echo "FLASK_PORT=5000" >> .env
+          echo "OPENWEATHER_API_KEY=${{ secrets.OPENWEATHER_API_KEY }}" >> .env
 
       - name: Run tests with pytest
         run: |
