@@ -71,6 +71,7 @@ jobs:
       #     pytest tests/
       - name: Run tests with pytest
         run: |
+          pipenv install pytest
           pipenv run pytest
 
       # Set up Docker Buildx
