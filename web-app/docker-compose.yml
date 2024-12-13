@@ -16,7 +16,7 @@ services:
     build:
       context: ./web-app
     environment:
-      - MONGO_DBNAME=${ ONGO_DBNAME}
+      - MONGO_DBNAME=${MONGO_DBNAME}
       - MONGO_URI=${MONGO_URI}
     env_file:
       - .env
