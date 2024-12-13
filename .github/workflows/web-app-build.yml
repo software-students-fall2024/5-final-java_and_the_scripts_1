@@ -62,13 +62,16 @@ jobs:
           echo "OPENWEATHER_API_KEY=${{ secrets.OPENWEATHER_API_KEY }}" >> .env
 
       # Run tests
-      - name: Run Tests
+      # - name: Run Tests
+      #   run: |
+      #     pip install pytest
+      #     set -o allexport
+      #     source .env
+      #     set +o allexport
+      #     pytest tests/
+      - name: Run tests with pytest
         run: |
-          pip install pytest
-          set -o allexport
-          source .env
-          set +o allexport
-          pytest tests/
+          pipenv run pytest
 
       # Set up Docker Buildx
       - name: Set up Docker Buildx
