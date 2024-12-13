@@ -95,7 +95,7 @@ jobs:
       - name: Deploy to DigitalOcean
         uses: appleboy/ssh-action@v0.1.1
         with:
-          host: ${{DO_HOST}}
+          host: ${{ secrets.DO_HOST }}
           username: root
           key: ${{ secrets.DO_SSH_KEY }}
           script: |
