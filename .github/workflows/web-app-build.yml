@@ -3,7 +3,7 @@ name: Web App CI/CD
 on:
   push:
     branches:
-      - main
+      - June
   pull_request:
     branches:
       - main
