@@ -29,10 +29,10 @@ jobs:
       # Build the Docker image
       - name: Build MongoDB Docker Image
         run: |
-          docker build -t nataliovcharov/mongodb ./mongodb
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/mongodb ./mongodb
 
       # Push the Docker image to Docker Hub
       - name: Push MongoDB Docker Image
         run: |
-          docker push nataliovcharov/mongodb
+          docker push ${{ secrets.DOCKER_USERNAME }}/mongodb
 

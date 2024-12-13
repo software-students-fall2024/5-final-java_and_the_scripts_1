@@ -1,4 +1,4 @@
-![web-app-build](https://github.com/software-students-fall2024/5-final-java_and_the_scripts_1/actions/workflows/web-appbuild.yml/badge.svg)
+![web-app-build](https://github.com/software-students-fall2024/5-final-java_and_the_scripts_1/actions/workflows/deploy.yml/badge.svg)
 ![mongodb-ci-cd](https://github.com/software-students-fall2024/5-final-java_and_the_scripts_1/actions/workflows/mongodb-ci-cd.yml/badge.svg)
 # Final Project
 
@@ -17,6 +17,7 @@ An exercise to put to practice software development teamwork, subsystem communic
 # Product Vision Statement
 WEARther is a web-based application that combines weather data and curated outfit recommendations to provide a seamless user experience. 
 
+
 ## **Description**
 **WEARther** uses real-time weather data to suggest gender-specific clothing options suitable for the current temperature and conditions. Unlike generic weather apps or static fashion guides, our product delivers a dynamic and location-specific outfit suggestion system, integrated with an intuitive, user-friendly interface and robust backend powered by Dockerized services.
 
@@ -31,8 +32,8 @@ WEARther is a web-based application that combines weather data and curated outfi
 
 ---
 
-### **Running the Project**
-#### Prerequisites
+## **Running the Project**
+### Prerequisites
 Make sure you have Python 3.8 or higher installed:
 ```bash
 python3 --version
@@ -58,6 +59,11 @@ python3 --version
     docker-compose down
     ```
 
+## **Docker Images Link**
+
+- [Web-app Subsystem Dockerhub Link](https://hub.docker.com/r/nataliovcharov/web-app)
+- [Mongodb Subsystem Dockerhub Link](https://hub.docker.com/r/nataliovcharov/mongodb)
+
 ---
 
 ### **Accessing the App**
@@ -66,25 +72,25 @@ python3 --version
 - **Add a location** and view outfit recommendations via the `/locations` route.
 
 ---
+## **Contributing**
+Contributions are welcome! Please follow these steps:
 
-## **Files and Directories**
+1. Fork the repository.
+2. Create a new branch for your feature or bug fix:
+```bash
+git checkout -b feature-name
+```
+3. Commit your changes:
+```bash
+git commit -m "Add feature-name"
+```
+4. Push to your branch:
+```bash
+git push origin feature-name
+```
+5. Submit a pull request.
 
-- **`app.py`**: Main Flask application handling routes, user authentication, weather data retrieval, and database operations.
-- **`test_app.py`**: Unit tests for the Flask app, including tests for weather data retrieval and route functionality.
-- **`test_popdatabase.py`**: Unit tests for verifying the population of the MongoDB database with outfit data based on temperature ranges.
-- **`popdatabase.py`**: Script for populating the database with outfits. Currently includes commented logic for inserting sample data into MongoDB.
-- **`requirements.txt`**: Lists the Python dependencies required for the application, such as Flask, Flask-Login, and pymongo.
-- **`Dockerfile`**: Defines the Docker image for the web app, including instructions for installing dependencies and setting up the environment.
-- **`docker-compose.yml`**: Configures and orchestrates services for the application, including the Flask web app and MongoDB.
-- **`templates/`**: Contains HTML templates used by the Flask app.
-  - `index.html`: Displays weather data and outfit suggestions.
-  - `locations.html`: Allows users to add and manage locations.
-  - `login.html`: User login page.
-  - `register.html`: User registration page.
-- **`static/`**: Contains static assets like CSS, JavaScript, and images used in the application.
-- **`images/`**: A folder where categorized images for outfits should be stored for database population.
-
-### **Troubleshooting**
+## **Troubleshooting**
 - **Environment Variables Not Found**:
   Ensure the `.env` file is present in the root directory and contains valid values.
 - **Database Connection Issues**:
@@ -92,3 +98,15 @@ python3 --version
   ```bash
       docker ps
   ```
+## **CI/CD Deployment**
+The application is automatically deployed to a DigitalOcean Droplet using GitHub Actions.
+
+1. Steps in CI/CD Workflow
+2. Build the Docker Image: The Flask app is built as a Docker image.
+3. Push to Docker Hub: The Docker image is uploaded to Docker Hub.
+4. Deploy on DigitalOcean: The Docker container is deployed to a DigitalOcean Droplet.
+5. View Deployed Application
+- The application is deployed at:
+ [Visit Our Live Link](https://hammerhead-app-ry66m.ondigitalocean.app/)
+
+
