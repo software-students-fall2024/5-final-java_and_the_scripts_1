@@ -28,6 +28,7 @@ jobs:
 
       - name: Install dependencies
         run: |
+
           cd web-app
           # pipenv install
           # if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
@@ -53,6 +54,7 @@ jobs:
         run: |
           pipenv install pytest
           pipenv run pytest
+
 
   deploy:
     runs-on: ubuntu-latest
