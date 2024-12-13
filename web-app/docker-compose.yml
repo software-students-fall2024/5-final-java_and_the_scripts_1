@@ -14,8 +14,7 @@ services:
 
   web-app:
     build:
-      context: .
-    container_name: flask-app
+      context: ./web-app
     environment:
       - MONGO_DBNAME=${MONGO_DBNAME}
       - MONGO_URI=${MONGO_URI}

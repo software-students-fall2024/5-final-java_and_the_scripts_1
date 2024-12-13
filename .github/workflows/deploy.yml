@@ -15,6 +15,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+      - name: Enter Directory
+        run: |
+          cd web-app
 
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v3
@@ -25,17 +28,33 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pipenv install
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-  
+
+          cd web-app
+          # pipenv install
+          # if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          pip install -r requirements.txt
       # Run tests
-      - name: Run Tests
+      # - name: Run Tests
+      #   run: |
+      #     set -o allexport
+      #     source .env
+      #     set +o allexport
+      #     pytest tests/
+      # Create .env file
+      - name: Create env file
         run: |
-          pip install pytest
-          set -o allexport
-          source .env
-          set +o allexport
-          pytest tests/
+          echo "MONGO_DBNAME=${{ secrets.MONGO_DB }}" > .env
+          echo "MONGO_URI=${{ secrets.MONGO_URI }}" >> .env
+          echo "FLASK_APP=app.py" >> .env
+          echo "FLASK_ENV=development" >> .env
+          echo "FLASK_PORT=5000" >> .env
+          echo "OPENWEATHER_API_KEY=${{ secrets.OPENWEATHER_API_KEY }}" >> .env
+
+      - name: Run tests with pytest
+        run: |
+          pipenv install pytest
+          pipenv run pytest
+
 
   deploy:
     runs-on: ubuntu-latest
