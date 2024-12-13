@@ -15,6 +15,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+      - name: Enter Directory
+        run: |
+          cd web-app
 
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v3
