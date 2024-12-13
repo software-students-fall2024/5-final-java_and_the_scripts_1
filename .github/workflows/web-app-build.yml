@@ -55,6 +55,7 @@ jobs:
       # Create .env file
       - name: Create env file
         run: |
+          cd 5-final-java_and_the_scripts_1
           echo "MONGO_DBNAME=${{ secrets.MONGO_DB }}" > .env
           echo "MONGO_URI=${{ secrets.MONGO_URI }}" >> .env
           echo "FLASK_APP=app.py" >> .env
