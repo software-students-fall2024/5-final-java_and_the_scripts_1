@@ -7,17 +7,18 @@ services:
     ports:
       - "27017:27017"
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: ${{ secrets.MONGO_INITDB_ROOT_PASSWORD}}
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
     volumes:
       - mongodb-data:/data/db
 
   web-app:
     build:
-      context: ./web-app
+      context: .
+    container_name: flask-app
     environment:
-      - MONGO_DBNAME= ${{ secrets.MONGO_DBNAME }}
-      - MONGO_URI= ${{ secrets.MONGO_URI }}
+      - MONGO_DBNAME=${MONGO_DBNAME}
+      - MONGO_URI=${MONGO_URI}
     env_file:
       - .env
     ports:
@@ -26,7 +27,6 @@ services:
       - mongodb
     volumes:
       - ./web-app/images:/app/images 
-
 
 volumes:
   mongodb-data:
