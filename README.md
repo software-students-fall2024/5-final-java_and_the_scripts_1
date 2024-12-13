@@ -101,12 +101,12 @@ git push origin feature-name
 ## **CI/CD Deployment**
 The application is automatically deployed to a DigitalOcean Droplet using GitHub Actions.
 
-- Steps in CI/CD Workflow
-- Build the Docker Image: The Flask app is built as a Docker image.
-- Push to Docker Hub: The Docker image is uploaded to Docker Hub.
-- Deploy on DigitalOcean: The Docker container is deployed to a DigitalOcean Droplet.
-- View Deployed Application
+1. Steps in CI/CD Workflow
+2. Build the Docker Image: The Flask app is built as a Docker image.
+3. Push to Docker Hub: The Docker image is uploaded to Docker Hub.
+4. Deploy on DigitalOcean: The Docker container is deployed to a DigitalOcean Droplet.
+5. View Deployed Application
 - The application is deployed at:
-- [Visit Our Live Link](https://hammerhead-app-ry66m.ondigitalocean.app/)
+ [Visit Our Live Link](https://hammerhead-app-ry66m.ondigitalocean.app/)
 
 
