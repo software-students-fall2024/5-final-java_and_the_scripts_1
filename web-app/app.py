@@ -2,7 +2,6 @@
 This module sets up a Flask application to handle routes and connect to MongoDB.
 It uses environment variables for configuration.
 """
-
 import os  
 from dotenv import load_dotenv  
 import subprocess
