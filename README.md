@@ -17,6 +17,7 @@ An exercise to put to practice software development teamwork, subsystem communic
 # Product Vision Statement
 WEARther is a web-based application that combines weather data and curated outfit recommendations to provide a seamless user experience. 
 
+
 ## **Description**
 **WEARther** uses real-time weather data to suggest gender-specific clothing options suitable for the current temperature and conditions. Unlike generic weather apps or static fashion guides, our product delivers a dynamic and location-specific outfit suggestion system, integrated with an intuitive, user-friendly interface and robust backend powered by Dockerized services.
 
