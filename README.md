@@ -32,8 +32,8 @@ WEARther is a web-based application that combines weather data and curated outfi
 
 ---
 
-### **Running the Project**
-#### Prerequisites
+## **Running the Project**
+### Prerequisites
 Make sure you have Python 3.8 or higher installed:
 ```bash
 python3 --version
@@ -58,6 +58,11 @@ python3 --version
     ```bash
     docker-compose down
     ```
+
+## **Docker Images Link**
+
+- [web-app subsystem dockerhub link](https://hub.docker.com/r/nataliovcharov/web-app)
+- [mongodb subsystem dockerhub link](https://hub.docker.com/r/nataliovcharov/mongodb)
 
 ---
 
@@ -84,11 +89,6 @@ git commit -m "Add feature-name"
 git push origin feature-name
 ```
 5. Submit a pull request.
-
-## **Docker Images Link**
-
-- **web-app subsystem link**:
-https://hub.docker.com/r/jl8059/web-app
 
 ## **Troubleshooting**
 - **Environment Variables Not Found**:
