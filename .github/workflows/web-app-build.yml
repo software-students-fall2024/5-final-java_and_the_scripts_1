@@ -71,6 +71,7 @@ jobs:
       #     pytest tests/
       - name: Run tests with pytest
         run: |
+          cd web-app
           pipenv install pytest
           pipenv run pytest
 
