@@ -67,25 +67,25 @@ python3 --version
 - **Add a location** and view outfit recommendations via the `/locations` route.
 
 ---
+## **Contributing**
+Contributions are welcome! Please follow these steps:
 
-## **Files and Directories**
+1. Fork the repository.
+2. Create a new branch for your feature or bug fix:
+```bash
+git checkout -b feature-name
+```
+3. Commit your changes:
+```bash
+git commit -m "Add feature-name"
+```
+4. Push to your branch:
+```bash
+git push origin feature-name
+```
+5. Submit a pull request.
 
-- **`app.py`**: Main Flask application handling routes, user authentication, weather data retrieval, and database operations.
-- **`test_app.py`**: Unit tests for the Flask app, including tests for weather data retrieval and route functionality.
-- **`test_popdatabase.py`**: Unit tests for verifying the population of the MongoDB database with outfit data based on temperature ranges.
-- **`popdatabase.py`**: Script for populating the database with outfits. Currently includes commented logic for inserting sample data into MongoDB.
-- **`requirements.txt`**: Lists the Python dependencies required for the application, such as Flask, Flask-Login, and pymongo.
-- **`Dockerfile`**: Defines the Docker image for the web app, including instructions for installing dependencies and setting up the environment.
-- **`docker-compose.yml`**: Configures and orchestrates services for the application, including the Flask web app and MongoDB.
-- **`templates/`**: Contains HTML templates used by the Flask app.
-  - `index.html`: Displays weather data and outfit suggestions.
-  - `locations.html`: Allows users to add and manage locations.
-  - `login.html`: User login page.
-  - `register.html`: User registration page.
-- **`static/`**: Contains static assets like CSS, JavaScript, and images used in the application.
-- **`images/`**: A folder where categorized images for outfits should be stored for database population.
-
-### **Troubleshooting**
+## **Troubleshooting**
 - **Environment Variables Not Found**:
   Ensure the `.env` file is present in the root directory and contains valid values.
 - **Database Connection Issues**:
@@ -93,3 +93,15 @@ python3 --version
   ```bash
       docker ps
   ```
+## **CI/CD Deployment**
+The application is automatically deployed to a DigitalOcean Droplet using GitHub Actions.
+
+Steps in CI/CD Workflow
+Build the Docker Image: The Flask app is built as a Docker image.
+Push to Docker Hub: The Docker image is uploaded to Docker Hub.
+Deploy on DigitalOcean: The Docker container is deployed to a DigitalOcean Droplet.
+View Deployed Application
+The application is deployed at:
+https://hammerhead-app-ry66m.ondigitalocean.app/
+
+
