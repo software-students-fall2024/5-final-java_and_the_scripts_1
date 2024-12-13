@@ -61,8 +61,8 @@ python3 --version
 
 ## **Docker Images Link**
 
-- [web-app subsystem dockerhub link](https://hub.docker.com/r/nataliovcharov/web-app)
-- [mongodb subsystem dockerhub link](https://hub.docker.com/r/nataliovcharov/mongodb)
+- [Web-app Subsystem Dockerhub Link](https://hub.docker.com/r/nataliovcharov/web-app)
+- [Mongodb Subsystem Dockerhub Link](https://hub.docker.com/r/nataliovcharov/mongodb)
 
 ---
 
@@ -107,6 +107,6 @@ Push to Docker Hub: The Docker image is uploaded to Docker Hub.
 Deploy on DigitalOcean: The Docker container is deployed to a DigitalOcean Droplet.
 View Deployed Application
 The application is deployed at:
-https://hammerhead-app-ry66m.ondigitalocean.app/
+- [Visit Our Live Link](https://hammerhead-app-ry66m.ondigitalocean.app/)
 
 
