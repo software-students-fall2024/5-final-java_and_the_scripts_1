@@ -89,7 +89,7 @@ jobs:
       # Build and push the Docker image
       - name: Build and push Docker image
         run: |
-          docker buildx build --platform linux/amd64,linux/arm64 -t jl8059/web-app:latest . --push
+          docker buildx build --platform linux/amd64,linux/arm64 -t ${{ secrets.DOCKER_USERNAME }}/web-app:latest . --push
 
       # Deploy to DigitalOcean
       - name: Deploy to DigitalOcean
@@ -99,6 +99,7 @@ jobs:
           username: root
           key: ${{ secrets.DO_SSH_KEY }}
           script: |
+            cd project
             docker pull ${{ secrets.DOCKER_USERNAME }}/web-app:latest
             docker-compose -f docker-compose.yml down || true
             docker-compose -f docker-compose.yml up --build -d
