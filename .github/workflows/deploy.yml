@@ -31,6 +31,7 @@ jobs:
       # Run tests
       - name: Run Tests
         run: |
+          pip install pytest
           set -o allexport
           source .env
           set +o allexport
