@@ -1,4 +1,4 @@
-![web-app-build](https://github.com/software-students-fall2024/5-final-java_and_the_scripts_1/actions/workflows/web-appbuild.yml/badge.svg)
+![web-app-build](https://github.com/software-students-fall2024/5-final-java_and_the_scripts_1/actions/workflows/deploy.yml/badge.svg)
 ![mongodb-ci-cd](https://github.com/software-students-fall2024/5-final-java_and_the_scripts_1/actions/workflows/mongodb-ci-cd.yml/badge.svg)
 # Final Project
 
